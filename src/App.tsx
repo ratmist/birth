@@ -25,7 +25,7 @@ function Photo({ src, label }: { src: string; label: string }) {
   return (
     <img
       className="real-photo"
-      src={src}
+      src={`${import.meta.env.BASE_URL}${src.replace(/^\/+/, '')}`}
       alt={label}
       onError={() => setFailed(true)}
     />
@@ -141,7 +141,12 @@ function App() {
   useEffect(() => { const close = (e: KeyboardEvent) => { if (e.key === 'Escape') { setLetter(false); setSelected(null) } }; window.addEventListener('keydown', close); return () => window.removeEventListener('keydown', close) }, [])
   const memory = selected === null ? null : memories[selected]
   return <>
-    <audio ref={audio} src="/music.mp3" loop preload="none" />
+    <audio
+  ref={audio}
+  src={`${import.meta.env.BASE_URL}music.mp3`}
+  loop
+  preload="none"
+/>
     <Confetti run={confettiRun} />
     <AnimatePresence>{boot && <motion.div className="boot" exit={{ y: '-110%', transition: { duration: .7, ease: [.76,0,.24,1] } }}>
       <div className="boot-bg-text">NINA NINA NINA</div><div className="boot-top">✦ PRIVATE BIRTHDAY BROADCAST <span>EST. 2000-SOMETHING</span></div>
